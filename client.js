@@ -7,9 +7,9 @@ const client = new Client({ intents: [
   GatewayIntentBits.GuildBans,
   GatewayIntentBits.GuildMessages,
   GatewayIntentBits.MessageContent,] });
-const developers = []
-const artists = []
-const designers = []
+
+  
+
 const actions = {
     "designer.look|developer.role": (message)=> {
         let prompt = "Hey! "+ `<@${message.author.id}> Glad to know you are developer (added to you developers list), Here are designers`
