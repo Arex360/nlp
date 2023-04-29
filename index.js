@@ -124,6 +124,8 @@ manager.addDocument("en","I am game developer, but I am looking for a game desig
 manager.addDocument("en","I am looking for the developers , who can code and make the base mechanics",roles.DeveloperLook)
 manager.addDocument("en","is there any developer?",roles.DeveloperLook)
 manager.addDocument("en","I am the artist, if someone need a artist, let me know",roles.ArtistRole)
+manager.addDocument("en","is there any artist? I am looking for one",roles.ArtistLook)
+manager.addDocument("en","I am looking for an artist, anyone can join me?",roles.ArtistLook)
 //Mixed 
 
 // Train the model
