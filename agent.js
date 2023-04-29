@@ -1,7 +1,10 @@
-const token = "MTEwMDUwOTI4Mzk0MDA0MDc1Ng.GTQRQv.AUouFmwq3DL4YexYEHP5_HCQlehsbd7vlEhpyA"; 
+
 const { Client, GatewayIntentBits } = require('discord.js');
 const { Predict } = require('./NLP');
 const { insertDeveloper, getDesigners, getDevelopers, insertDesigner ,artists,designers,developers,getArtists,insertArtist} = require('./CRUD');
+const dotenv = require('dotenv')
+dotenv.config()
+const token = process.env.TOKEN
 const client = new Client({ intents: [ 
   GatewayIntentBits.DirectMessages,
   GatewayIntentBits.Guilds,
