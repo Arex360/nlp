@@ -1,7 +1,6 @@
 
 const { Client, GatewayIntentBits,AttachmentBuilder ,EmbedBuilder} = require('discord.js');
 const { Predict } = require('./NLP');
-const { insertDeveloper, getDesigners, getDevelopers, insertDesigner ,artists,designers,developers,getArtists,insertArtist} = require('./CRUD');
 const dotenv = require('dotenv')
 const actions = require('./action')
 const fs = require('fs');
@@ -32,7 +31,6 @@ client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
 });
 client.on("messageCreate", async (message,buffer) => {
-  console.log(message,buffer)
 if (message.content.startsWith("!mlab")) {
     const intent = await Predict(message.content)
     console.log(intent)

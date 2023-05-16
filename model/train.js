@@ -79,7 +79,7 @@ manager.addDocument('en', 'I am proficient in Sketch', roles.DesignerRole);
 manager.addDocument('en', 'I am a graphic designer', roles.DesignerRole);
 manager.addDocument('en', 'I work with Figma', roles.DesignerRole);
 
-//new 
+//new dataet
 
 manager.addDocument('en', 'I am a professional artist', roles.ArtistRole);
 manager.addDocument('en', 'I am a software engineer', roles.DeveloperRole);
@@ -126,6 +126,7 @@ manager.addDocument("en","is there any developer?",roles.DeveloperLook)
 manager.addDocument("en","I am the artist, if someone need a artist, let me know",roles.ArtistRole)
 manager.addDocument("en","is there any artist? I am looking for one",roles.ArtistLook)
 manager.addDocument("en","I am looking for an artist, anyone can join me?",roles.ArtistLook)
+manager.addDocument("en","I am looking for artists",roles.ArtistLook)
 //Mixed 
 
 // Train the model
