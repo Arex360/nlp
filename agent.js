@@ -77,7 +77,7 @@ const actions = {
         let developers = getDevelopers()
         if(developers != false){
             developers.forEach(developer=>{
-                prompt += developer + '\n'
+                prompt += developer + '\n \n'
             })
             const image = new AttachmentBuilder(buffer,{name:"image.png"})
         message.reply({prompt,files:[image],embeds: [BuildEmbed({prompt,title:"Here are following developers"})]})
