@@ -1,19 +1,21 @@
-
-const { Client, GatewayIntentBits } = require('discord.js');
-const { Predict } = require('./NLP');
+const { Client, GatewayIntentBits,AttachmentBuilder ,EmbedBuilder} = require('discord.js');
 const { insertDeveloper, getDesigners, getDevelopers, insertDesigner ,artists,designers,developers,getArtists,insertArtist} = require('./CRUD');
-const dotenv = require('dotenv')
-dotenv.config()
-const token = process.env.TOKEN
-const client = new Client({ intents: [ 
-  GatewayIntentBits.DirectMessages,
-  GatewayIntentBits.Guilds,
-  GatewayIntentBits.GuildBans,
-  GatewayIntentBits.GuildMessages,
-  GatewayIntentBits.MessageContent,] });
+const BuildEmbed = ({title,prompt})=>{
+    const exampleEmbed = new EmbedBuilder()
+  .setColor(0x0099FF)
+  .setTitle(title)
+  .setURL('https://discord.js.org/')
+  .setAuthor({ name: 'AI MatchMaker', iconURL: 'https://imgur.com/Wz14mCj.png', url: 'https://discord.js.org' })
+  .setDescription(prompt)
+  .setThumbnail('https://imgur.com/Wz14mCj.png')
+  .setImage('https://imgur.com/XAFrUZM.gif')
+  .setTimestamp()
+  .setFooter({ text: 'If found any wrong result, please report to Arex', iconURL: 'https://imgur.com/Wz14mCj.png' });
+  return exampleEmbed
+}
 
 const actions = {
-    "designer.look|developer.role": (message)=> {
+    "designer.look|developer.role": (message,buffer)=> {
         let prompt = "Hey! "+ `<@${message.author.id}> Glad to know you are developer (added to you developers list), Here are designers \n \n`
         insertDeveloper(` <@${message.author.id}> `)
         let designers = getDesigners()
@@ -25,13 +27,15 @@ const actions = {
             if(designers.length == 0){
                 prompt = "Hey! "+ `<@${message.author.id}> Glad to know you are developer (added to you developers list), I am sorry, there is no designer at the moment` 
             }
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }else{
             prompt = "Hey! "+ `<@${message.author.id}> Glad to know you are developer (added to you developers list), I am sorry, there is no designer at the moment` 
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }
     },
-    "designer.look": (message)=> {
+    "designer.look": (message,buffer)=> {
         let prompt = "Hey! "+ `<@${message.author.id}> , Here are some designers \n \n `
         const myDesigners = getDesigners()
         if(myDesigners != false){
@@ -42,34 +46,39 @@ const actions = {
             if(myDesigners.length == 0){
                 prompt = "Hey! "+ `<@${message.author.id}> , I am sorry, there is no designer at the moment` 
             }
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }else{
             console.log("designer not found")
             prompt = "Hey! "+ `<@${message.author.id}> , I am sorry, there is no designer at the moment`
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }
     },
-    'designer.role': (message)=>{
+    'designer.role': (message,buffer)=>{
         let prompt = "Hey! "+ `<@${message.author.id}> Nice to know you are a designer, will notify you if someone need a game designer`
         insertDesigner(` <@${message.author.id}>  `)
-        message.reply(prompt)
+        const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
     },
-    'developer.look': (message)=>{
-        let prompt = "Hey! "+ `<@${message.author.id}> Here are some developers \n \n`
+    'developer.look': (message,buffer)=>{
+        let prompt = ""
         let developers = getDevelopers()
         if(developers != false){
             developers.forEach(developer=>{
-                prompt += developer
+                prompt += developer + '\n \n'
             })
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image],embeds: [BuildEmbed({prompt,title:"Here are following developers"})]})
         }
     },
-    'developer.role': (message)=>{
+    'developer.role': (message,buffer)=>{
         let prompt = "Hey! "+ `<@${message.author.id}> Nice to know you are a developer, will notify you if someone need a game developer`
         insertDeveloper(` <@${message.author.id}>  `)
-        message.reply(prompt)
+        const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
     },
-    'artist.look': (message)=>{
+    'artist.look': (message,buffer)=>{
         let prompt = "Hey! "+ `<@${message.author.id}> , Here are some artists \n \n `
         const myArists = getArtists()
         if(myArists != false){
@@ -80,31 +89,21 @@ const actions = {
             if(myArists.length == 0){
                 prompt = "Hey! "+ `<@${message.author.id}> , I am sorry, there is no artist at the moment` 
             }
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }else{
             console.log("artist not found")
             prompt = "Hey! "+ `<@${message.author.id}> , I am sorry, there is no artist at the moment`
-            message.reply(prompt)
+            const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
         }
     },
-    'artist.role': (message)=>{
+    'artist.role': (message,buffer)=>{
         let prompt = "Hey! "+ `<@${message.author.id}> Nice to know you are a artist, will notify you if someone need a game artist`
         insertArtist(` <@${message.author.id}>  `)
-        message.reply(prompt)
+        const image = new AttachmentBuilder(buffer,{name:"image.png"})
+        message.reply({prompt,files:[image]})
+       // message.reply(prompt)
     }
 }
-
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-});
-client.on("messageCreate", async (message) => {
-  console.log(message)
-if (message.content.startsWith("!mlab")) {
-    const intent = await Predict(message.content)
-    console.log(intent)
-    const image = new Discord.MessageAttachment("https://s.imgur.com/images/logo-1200-630.jpg?2","img.png");
-    message.reply({files:[image]})
-    //actions[intent](message)
-} 
-});
-client.login(token);
+module.exports = actions
