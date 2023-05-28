@@ -4,6 +4,8 @@ const { Predict } = require('./NLP');
 const dotenv = require('dotenv')
 const actions = require('./action')
 const fs = require('fs');
+const { execSync } = require('child_process');
+const Slap = require('./intents/Slap');
 dotenv.config()
 const token = process.env.TOKEN
 const client = new Client({ intents: [ 
@@ -39,13 +41,19 @@ if (message.content.startsWith("!mlab")) {
           console.error('Error reading image file:', err);
           return;
         }
-      
         const buffer = Buffer.from(data);
         
         actions[intent](message,buffer)
         console.log('Image successfully loaded into buffer:', buffer);
-      });
-    
-} 
+      });  
+}
+
+// slap
+ if(message.content.startsWith("!slap")){
+      const sender = message.author.username
+      const victom = message.mentions.users.first().username
+      Slap(message, sender,victom)
+ }
+
 });
 client.login(token);
