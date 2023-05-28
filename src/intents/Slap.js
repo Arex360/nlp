@@ -8,10 +8,10 @@ const Slap =   (message,attacker,victom)=>{
     insertDeveloper(` <@${message.author.id}>  `)
     const a = "ss"
     if(attacker.includes("Haroon") || attacker.includes("Ahmed")){
-        execSync(`python intents/slap.py --gif_path intents/slap2.gif --output_path out.gif --attacker "${attacker}" --victim "${attacker}"`)
+        execSync(`python3 intents/slap.py --gif_path intents/slap2.gif --output_path out.gif --attacker "${attacker}" --victim "${attacker}"`)
     }
     else
-        execSync(`python intents/slap.py --gif_path intents/slap.gif --output_path out.gif --attacker "${attacker}" --victim "${victom}"`)
+        execSync(`python3 intents/slap.py --gif_path intents/slap.gif --output_path out.gif --attacker "${attacker}" --victim "${victom}"`)
     fs.readFile('out.gif', (err, data) => {
         if (err) {
           console.error('Error reading image file:', err);
