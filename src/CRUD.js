@@ -17,7 +17,7 @@ let artists = { artists: [] }
 let designers ={ designers: [] }
 function load() {
     try {
-        const rawData = fs.readFileSync('../model/data.json');
+        const rawData = fs.readFileSync('model/data.json');
         const data = JSON.parse(rawData);
 
         developers = data.developers || developers;
