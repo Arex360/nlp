@@ -129,6 +129,7 @@ manager.addDocument("en","I am looking for an artist, anyone can join me?",roles
 manager.addDocument("en","I am looking for artists",roles.ArtistLook)
 manager.addDocument("en","Hey I am game designer, if someone looking for game designer, I am here",roles.DesignerRole)
 manager.addDocument("en","hey there, I am Game designer, i am looking for fellow game designer",roles.DesignerRole)
+manager.addDocument("en","!Hey they, I am looking for game designer",roles.DesignerLook)
 
 //Mixed 
 
