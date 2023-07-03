@@ -11,6 +11,8 @@ const Developer_Look = (message,buffer)=>{
         })
         const image = new AttachmentBuilder(buffer,{name:"image.png"})
     message.reply({prompt,files:[image],embeds: [BuildEmbed({prompt,title:"Here are following developers"})]}) 
+    }else{
+        message.reply("no devloper found")
     }
 }
 module.exports = Developer_Look
